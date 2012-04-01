@@ -41,7 +41,7 @@ local function sortstring(str)
 end
 
 local wordlist = {}
-f = assert(io.open "D8.DIC")
+f = assert(io.open "wordlist.txt")
 for v in f:lines() do
 	if string.len(v) == count  then 
 		local s = sortstring(v)
