@@ -29,6 +29,10 @@ end
 f:close()
 ]]
 
+local set = { string.byte(string.lower(arg[1]),1,#arg[1]) }
+table.sort(set)
+local count = tonumber(arg[2])
+
 
 local function sortstring(str)
 	local c = { string.byte(str,1,#str) }
@@ -37,20 +41,19 @@ local function sortstring(str)
 end
 
 local wordlist = {}
-f = assert(io.open "wordlist.txt")
+f = assert(io.open "D8.DIC")
 for v in f:lines() do
-	local s = sortstring(v)
-	local wl = wordlist[s]
-	if wl == nil then
-		wl = {}
-		wordlist[s] = wl
+	if string.len(v) == count  then 
+		local s = sortstring(v)
+		local wl = wordlist[s]
+		if wl == nil then
+			wl = {}
+			wordlist[s] = wl
+		end
+		table.insert(wl , v)
 	end
-	table.insert(wl , v)
 end
 
-local set = { string.byte(string.lower(arg[1]),1,#arg[1]) }
-table.sort(set)
-local count = tonumber(arg[2])
 
 local function genword( result , charset , tail , count )
 	if count == 0 then
